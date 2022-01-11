@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package prog05.util;
 
 import java.util.Scanner;
@@ -10,25 +5,11 @@ import java.util.Scanner;
 /**
  *
  * @author Iván Estévez Sabucedo
+ * @date 2021/01/11
+ * @description Programa que comprueba si un DNI es válido o no
  */
-public class Validar {
-
-    /**
-     * Comprueba si la información introducida por teclado es un entero. En caso
-     * de introducir otro tipo de dato, vuelve a solicitar introducir un dato
-     * correcto.
-     *
-     * @return el entero introducido por teclado.
-     */
-    public static int obtenerEnteroPorTeclado() {
-        Scanner scan = new Scanner(System.in);
-        while (scan.hasNextInt() == false) {
-            scan.nextLine();
-            System.out.print("Opción incorrecta. Por favor, escribe un número: ");
-        }
-        int numero = scan.nextInt();
-        return numero;
-    }
+ 
+public class ValidarNIF {
 
     // DNI es el documento mientras que NIF es la numeración
     private static final String LETRAS = "TRWAGMYFPDXBNJZSQVHLCKE";
