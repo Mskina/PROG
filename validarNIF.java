@@ -3,7 +3,6 @@ package prog05.util;
 import java.util.Scanner;
 
 /**
- *
  * @author Iván Estévez Sabucedo
  * @date 2021/01/11
  * @description Programa que comprueba si un DNI es válido o no
