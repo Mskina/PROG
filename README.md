@@ -1,2 +1,2 @@
 # prog
-Clases o métodos creados en clase de Programación :)
+Clases/métodos creados en clase de Programación :)
