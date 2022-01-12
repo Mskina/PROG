@@ -30,6 +30,24 @@ public class Validar {
         return numero;
     }
 
+    /**
+     * Comprueba si el número introducido es mayor que 0.Si no lo es, vuelve a
+ solicitar introducir un dato correcto.
+     *
+     * @param numero
+     * @return el entero introducido por teclado.
+     */
+    public static boolean esMayorQueCero(int numero) {
+        boolean esMayorQueCero;
+        if (numero <= 0) {
+            esMayorQueCero = false;
+            System.out.print("El número debe ser mayor que cero. Escribe el número: ");
+        } else {
+            esMayorQueCero = true;
+        }
+        return esMayorQueCero;
+    }
+
     // DNI es el documento mientras que NIF es la numeración
     private static final String LETRAS = "TRWAGMYFPDXBNJZSQVHLCKE";
 
@@ -57,24 +75,21 @@ public class Validar {
      * @return <code>true</code> si el NIF es válido y <code>false</code> en
      * caso contrario.
      */
-    public static boolean validarNIF(String nif) {
+    public static boolean validarNIF(String nif) throws NumberFormatException {
         boolean valido = true; // Por defecto, consideramos que es correcto
         char letraCalculada;
         char letraLeida;
         int nifLeido;
         if (nif == null) { // El campo no puede estar vacío
             valido = false;
-        } else if (nif.length() < 8 || nif.length() > 9) { //Número de caracteres
+        } else if (nif.length() < 8 || nif.length() > 9) { //Número de caracteres. Permite no poner el 0 inicial
             valido = false;
         } else {
             letraLeida = extraerLetraNIF(nif); //Extraemos la letra
             nifLeido = extraerNumeroNIF(nif); //Extraemos el número
             letraCalculada = calcularLetraNIF(nifLeido);  //Calculamos la letra de NIF a partir del número extraído
-            if (letraLeida == letraCalculada) {  // Comparamos la letra extraída con la calculada
-                valido = true; // Todas las comprobaciones han resultado válidas. El NIF es válido.
-            } else {
-                valido = false;
-            }
+            valido = letraLeida == letraCalculada; // Comparamos la letra extraída con la calculada
+            // Todas las comprobaciones han resultado válidas. El NIF es válido.
         }
         return valido;
     }
