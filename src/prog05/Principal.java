@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package prog05;
 
 import prog05.util.Validar;
@@ -11,6 +6,8 @@ import java.time.LocalDate;
 import java.time.DateTimeException;
 
 /**
+ * Clase donde se instancia el objeto, solicitando los datos. Se muestran
+ * mensajes de error cuando los datos no son correctos.
  *
  * @author Iván Estévez Sabucedo
  */
@@ -20,21 +17,19 @@ public class Principal {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        String marca; // Marca del vehículo
+        String matricula; // Matrícula del vehículo
+        int kilometros; // Kilómetros del vehículo
+        LocalDate fechaMatriculacion; // Fecha de matriculación del vehículo
+        String descripcion; // Descripción del vehículo
+        int precio; // Precio del vehículo
+        String nombrePropietario; // Nombre del propietario del vehículo
+        String nifPropietario; // NIF del propietario del vehículo
 
-        Vehiculo coche = null;
+        Vehiculo coche = null; // Instanciamos un vehículo vacío
+        boolean salir = false; // El elemento salir se empleará para saber cuándo quiere el usuario finalizar el programa.
 
-        String marca;
-        String matricula;
-        int kilometros;
-        LocalDate fechaMatriculacion;
-        String descripcion;
-        int precio;
-        String nombrePropietario;
-        String nifPropietario;
-
-        boolean salir = false;
-
-        Scanner scan = new Scanner(System.in);
+        Scanner scan = new Scanner(System.in); // Creamos un nuevo Scanner para los datos que vamos a solicitar por teclado
 
         System.out.println("Bienvenido a AutoGest, tu sistema de gestión del automóvil.");
 
@@ -43,27 +38,28 @@ public class Principal {
                 int opcion = lanzarMenu(); // Menú de selección de opción
                 switch (opcion) { // Características de cada opción
                     case 1:
-                        coche = new Vehiculo();
+                        //coche = new Vehiculo();
                         System.out.println("");
                         System.out.println("Introduce los siguientes datos:");
                         System.out.println("");
 
                         System.out.print("Marca: ");
                         marca = scan.nextLine();
-                        coche.setMarca(marca);
 
                         System.out.print("Matrícula: ");
                         matricula = scan.nextLine();
-                        coche.setMatricula(matricula);
-
+                        /* Empleando un validador de matrícula
+                        do {
+                            matricula = scan.nextLine();
+                        } while (Validar.esMatriculaCorrecta(matricula) == false);
+                         */
                         System.out.print("Kilómetros: ");
                         do {
                             kilometros = Validar.obtenerEnteroPorTeclado();
                         } while (Validar.esMayorQueCero(kilometros) == false);
-                        coche.setKilometros(kilometros);
 
                         System.out.println("Fecha de matriculación: ");
-                        do { // Primer bucle. Encierra que la fecha no sea igual a la actual
+                        do { // Primer bucle. Encierra que la fecha sea anterior a hoy
                             do { // Segundo bucle. Encierra que la fecha sea correcta.
                                 try {
                                     fechaMatriculacion = pedirFechaMatriculacion();
@@ -72,25 +68,21 @@ public class Principal {
                                     fechaMatriculacion = null;
                                 }
                             } while (fechaMatriculacion == null);
-                            if (fechaMatriculacion.equals(LocalDate.now())) {
-                                System.out.println("La fecha de matriculación no puede ser la de hoy. Escribe una fecha anterior.");
+                            if (!fechaMatriculacion.isBefore(LocalDate.now())) {
+                                System.out.println("La fecha de matriculación debe ser anterior a hoy. Escribe una fecha correcta: ");
                             }
-                        } while (fechaMatriculacion.equals(LocalDate.now()));
-                        coche.setFechaMatriculacion(fechaMatriculacion);
+                        } while (!fechaMatriculacion.isBefore(LocalDate.now()));
 
                         System.out.print("Descripción del vehículo: ");
                         descripcion = scan.nextLine();
-                        coche.setDescripcion(descripcion);
 
                         System.out.print("Precio: ");
                         do {
                             precio = Validar.obtenerEnteroPorTeclado();
                         } while (Validar.esMayorQueCero(precio) == false);
-                        coche.setPrecio(precio);
 
                         System.out.print("Nombre del propietario: ");
                         nombrePropietario = scan.nextLine();
-                        coche.setNombrePropietario(nombrePropietario);
 
                         System.out.print("NIF del propietario: ");
                         do {
@@ -102,14 +94,12 @@ public class Principal {
                             }
                             System.out.print("NIF incorrecto. Por favor, escribe un NIF correcto: ");
                         } while (Validar.validarNIF(nifPropietario) == false);
-                        coche.setNifPropietario(nifPropietario);
-                        
-                        coche = new Vehiculo(coche.getMarca(), coche.getMatricula(), coche.getKilometros(), coche.getFechaMatriculacion(), coche.getDescripcion(), coche.getPrecio(), coche.getNombrePropietario(), coche.getNifPropietario());
+
+                        coche = new Vehiculo(marca, matricula, kilometros, fechaMatriculacion, descripcion, precio, nombrePropietario, nifPropietario);
                         System.out.println("-- Vehículo guardado correctamente");
-                        
+
                         break;
 
-                    
                     case 2:
                         System.out.println("Matrícula del vehículo: " + coche.getMatricula());
                         break;
@@ -198,20 +188,20 @@ public class Principal {
 
     /**
      * Método para solicitar la fecha de matriculación.
-     * 
+     *
      * @return LocalDate.of
      * @throws DateTimeException
      */
     public static LocalDate pedirFechaMatriculacion() throws DateTimeException {
         Scanner scan = new Scanner(System.in);
         System.out.print("  Día: ");
-        int dayOfMonth = scan.nextInt();
+        int dayOfMonth = scan.nextInt(); // Solicitamos el día
         scan.nextLine();
         System.out.print("  Mes: ");
-        int month = scan.nextInt();
+        int month = scan.nextInt(); // Solicitamos el mes
         scan.nextLine();
         System.out.print("  Año: ");
-        int year = scan.nextInt();
+        int year = scan.nextInt(); // Solicitamos el año
         scan.nextLine();
         return LocalDate.of(year, month, dayOfMonth);
     }
@@ -228,8 +218,6 @@ public class Principal {
         do {
             kilometrosParaSumar = Validar.obtenerEnteroPorTeclado();
         } while (Validar.esMayorQueCero(kilometrosParaSumar) == false);
-        int kilometrosActuales = coche.getKilometros();
-        int kilometrosNuevos = kilometrosActuales + kilometrosParaSumar;
-        coche.setKilometros(kilometrosNuevos);
+        coche.addKilometros(kilometrosParaSumar);
     }
 }

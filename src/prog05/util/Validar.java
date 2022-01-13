@@ -1,13 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package prog05.util;
 
 import java.util.Scanner;
 
 /**
+ * Esta clase está diseñada para contener todas las validaciones de datos
+ * necesarias para asegurar que únicamente procesamos datos correctos.
  *
  * @author Iván Estévez Sabucedo
  */
@@ -32,7 +29,7 @@ public class Validar {
 
     /**
      * Comprueba si el número introducido es mayor que 0.Si no lo es, vuelve a
- solicitar introducir un dato correcto.
+     * solicitar introducir un dato correcto.
      *
      * @param numero
      * @return el entero introducido por teclado.
@@ -49,19 +46,37 @@ public class Validar {
     }
 
     // DNI es el documento mientras que NIF es la numeración
-    private static final String LETRAS = "TRWAGMYFPDXBNJZSQVHLCKE";
+    private static final String LETRAS = "TRWAGMYFPDXBNJZSQVHLCKE"; // Orden de las letras que pueden aparecer en un NIF
 
+    /**
+     * Calcula la letra que le corresponde a la numeración.
+     *
+     * @param nif
+     * @return la letra que le corresponde.
+     */
     private static char calcularLetraNIF(int nif) {
         char letra;
         letra = LETRAS.charAt(nif % 23); // Con módulo 23 calculamos la letra del NIF
         return letra;
     }
 
+    /**
+     * Dado el NIF, extra la letra del mismo
+     *
+     * @param nif
+     * @return la letra que le corresponde.
+     */
     private static char extraerLetraNIF(String nif) {
         char letra = nif.charAt(nif.length() - 1);
         return letra;
     }
 
+    /**
+     * Dado el NIF, extra el número del mismo
+     *
+     * @param nif
+     * @return la letra que le corresponde.
+     */
     private static int extraerNumeroNIF(String nif) {
         int numero = Integer.parseInt(nif.substring(0, nif.length() - 1));
         return numero;
@@ -93,4 +108,16 @@ public class Validar {
         }
         return valido;
     }
+
+    /* Validador de matrícula para sistema provincial alfanumérico y sistema nacional alfanumérico
+    public static boolean esMatriculaCorrecta(String matricula) {
+        if (matricula.toUpperCase().matches("^[0-9]{4}[A-Z]{3}$")) {
+            return true;
+        } else if (matricula.toUpperCase().matches("^[A-Z]{1,2}[0-9]{4}[A-Z]{1,2}$")) {
+            return true;
+        } else {
+            System.out.print("Matrícula inválida. Escribe una matrícula válida: ");
+            return false;
+        }
+    }*/
 }
