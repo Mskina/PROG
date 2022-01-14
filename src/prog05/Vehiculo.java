@@ -4,139 +4,138 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
 /**
- * En esta clase se incluyen todos los métodos necesarios para crear un objeto
- * Vehículo. Todos los datos que se guardan aquí vienen validados.
+ * Representa la creación de un objeto Vehículo. Permite consultar y actualizar
+ * sus parámetros, que deberán venir validados previamente.
  *
  * @author Iván Estévez Sabucedo
  */
 public class Vehiculo {
 
-    private String marca; // Marca del vehículo
-    private String matricula; // Matrícula del vehículo
-    private int kilometros; // Kilómetros del vehículo
-    private LocalDate fechaMatriculacion; // Fecha de matriculación del vehículo
-    private String descripcion; // Descripción del vehículo
-    private int precio; // Precio del vehículo
-    private String nombrePropietario; // Nombre del propietario del vehículo
-    private String nifPropietario; // NIF del propietario del vehículo
+    private String marca;
+    private String matricula;
+    private int kilometros;
+    private LocalDate fechaMatriculacion;
+    private String descripcion;
+    private int precio;
+    private String nombrePropietario;
+    private String nifPropietario;
 
     /**
      * Método constructor del vehículo, donde se solicitan todos los parámetros
      * obligatorios
      *
-     * @param marca
-     * @param matricula
-     * @param kilometros
-     * @param fechaMatriculacion
-     * @param descripcion
-     * @param precio
-     * @param nombrePropietario
-     * @param nifPropietario
+     * @param marca marca del vehículo
+     * @param matricula matrícula del vehículo
+     * @param kilometros número de kilómetros del vehículo
+     * @param fechaMatriculacion fecha de matriculación del vehículo
+     * @param descripcion escripción del vehículo
+     * @param precio precio del vehículo
+     * @param nombrePropietario nombre del propietario del vehículo
+     * @param nifPropietario NIF del propietario del vehículo
      *
      */
     public Vehiculo(String marca, String matricula, int kilometros, LocalDate fechaMatriculacion, String descripcion, int precio, String nombrePropietario, String nifPropietario) {
-        this.marca = marca;
-        this.matricula = matricula;
+        this.marca = marca.trim(); // Con .trim evitamos almacenar espacios en blanco
+        this.matricula = matricula.trim();
         this.kilometros = kilometros;
         this.fechaMatriculacion = fechaMatriculacion;
-        this.descripcion = descripcion;
+        this.descripcion = descripcion.trim();
         this.precio = precio;
-        this.nombrePropietario = nombrePropietario;
+        this.nombrePropietario = nombrePropietario.trim();
         this.nifPropietario = nifPropietario;
     }
 
     /**
-     * Método que devuelve la marca del vehículo
+     * Devuelve la marca del vehículo
      *
-     * @return marca
+     * @return Marca del vehículo
      */
     public String getMarca() {
         return marca;
     }
 
     /**
-     * Método que devuelve la matrícula del vehículo
+     * Devuelve la matrícula del vehículo
      *
-     * @return matricula
+     * @return Matrícula del vehículo
      */
     public String getMatricula() {
         return matricula;
     }
 
     /**
-     * Método que guarda los nuevos kilómetros del vehículo
+     * Permite actualizar el número de kilómetros del vehículo
      *
-     * @param kilometros
+     * @param kilometrosParaSumar número de kilómetros que queremos añadir a la cifra
+     * actual
      */
     public void addKilometros(int kilometrosParaSumar) {
         this.kilometros += kilometrosParaSumar;
     }
 
     /**
-     * Método que devuelve los kilómetros del vehículo
+     * Devuelve los kilómetros del vehículo
      *
-     * @return kilometros
+     * @return Kilómetros del vehículo
      */
     public int getKilometros() {
         return kilometros;
     }
 
     /**
-     * Método que devuelve la fecha de matriculación del vehículo
+     * Devuelve la fecha de matriculación del vehículo
      *
-     * @return fechaMatriculacion
+     * @return Fecha de matriculación del vehículo
      */
     public LocalDate getFechaMatriculacion() {
         return fechaMatriculacion;
     }
 
     /**
-     * Método que devuelve la descripción del vehículo
+     * Devuelve la descripción del vehículo
      *
-     * @return descripcion
+     * @return Descripción del vehículo
      */
     public String getDescripcion() {
         return descripcion;
     }
 
     /**
-     * Método que devuelve el precio del vehículo
+     * Devuelve el precio del vehículo
      *
-     * @return precio
+     * @return Precio del vehículo
      */
     public int getPrecio() {
         return precio;
     }
 
     /**
-     * Método que devuelve el nombre del propietario del vehículo
+     * Devuelve el nombre del propietario del vehículo
      *
-     * @return nombrePropietario
+     * @return Nombre del propietario del vehículo
      */
     public String getNombrePropietario() {
         return nombrePropietario;
     }
 
     /**
-     * Método que devuelve el NIF del propietario del vehículo
+     * Devuelve el NIF del propietario del vehículo
      *
-     * @return nifPropietario
+     * @return NIF del propietario del vehículo
      */
     public String getNifPropietario() {
         return nifPropietario;
     }
 
     /**
-     * Método que devuelve el número de años (entero) entre la fecha de
-     * matriculación y la fecha actual
+     * Calcula los años entre la fecha de matriculación y la actual
      *
-     * @return anioEntreFechas
+     * @return número de años
      */
-    public int getAnios() {
+    public long getAnios() {
         LocalDate fechaHoy = LocalDate.now();
         LocalDate fechaMatricula = getFechaMatriculacion();
-        long diasEntreFechas = ChronoUnit.DAYS.between(fechaHoy, fechaMatricula);
-        int aniosEntreFechas = (int) (diasEntreFechas / 365);
+        long aniosEntreFechas = ChronoUnit.YEARS.between(fechaHoy, fechaMatricula);
         return aniosEntreFechas;
     }
 }

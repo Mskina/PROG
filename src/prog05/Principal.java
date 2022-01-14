@@ -6,8 +6,8 @@ import java.time.LocalDate;
 import java.time.DateTimeException;
 
 /**
- * Clase donde se instancia el objeto, solicitando los datos. Se muestran
- * mensajes de error cuando los datos no son correctos.
+ * Representa la creación del vehículo. Los datos se solicitan y, junto con la
+ * clase Validar, se comprueba que sean correctos.
  *
  * @author Iván Estévez Sabucedo
  */
@@ -38,7 +38,6 @@ public class Principal {
                 int opcion = lanzarMenu(); // Menú de selección de opción
                 switch (opcion) { // Características de cada opción
                     case 1:
-                        //coche = new Vehiculo();
                         System.out.println("");
                         System.out.println("Introduce los siguientes datos:");
                         System.out.println("");
@@ -86,8 +85,8 @@ public class Principal {
 
                         System.out.print("NIF del propietario: ");
                         do {
-                            nifPropietario = scan.nextLine();
                             try {
+                                nifPropietario = scan.nextLine();
                                 Validar.validarNIF(nifPropietario);
                             } catch (NumberFormatException nfe) {
                                 nifPropietario = null;
@@ -159,9 +158,9 @@ public class Principal {
     }
 
     /**
-     * Método que muestra el menú principal validando la opción elegida
+     * Muestra el menú principal validando la opción elegida
      *
-     * @return opcion
+     * @return opción elegida por el usuario
      */
     public static int lanzarMenu() throws NullPointerException {
         System.out.println("");
@@ -187,9 +186,9 @@ public class Principal {
     }
 
     /**
-     * Método para solicitar la fecha de matriculación.
+     * Solicita la fecha de matriculación del vehículo
      *
-     * @return LocalDate.of
+     * @return un objeto LocalDate.of con año, mes y día de matriculación
      * @throws DateTimeException
      */
     public static LocalDate pedirFechaMatriculacion() throws DateTimeException {
@@ -203,12 +202,13 @@ public class Principal {
         System.out.print("  Año: ");
         int year = scan.nextInt(); // Solicitamos el año
         scan.nextLine();
+        scan.close();
         return LocalDate.of(year, month, dayOfMonth);
     }
 
     /**
-     * Método que permite actualizar el kilometráje del vehículo instanciado. No
-     * permite introducir el valor cero.
+     * Actualiza el número de kilómetros del vehículo, solicitando que el
+     * usuario introduzca el número de kilómetros a incrementar.
      *
      * @param coche
      */

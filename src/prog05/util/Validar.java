@@ -3,8 +3,8 @@ package prog05.util;
 import java.util.Scanner;
 
 /**
- * Esta clase está diseñada para contener todas las validaciones de datos
- * necesarias para asegurar que únicamente procesamos datos correctos.
+ * Contiene todas las validaciones de datos necesarias para asegurar que
+ * únicamente procesamos datos correctos.
  *
  * @author Iván Estévez Sabucedo
  */
@@ -21,9 +21,10 @@ public class Validar {
         Scanner scan = new Scanner(System.in);
         while (scan.hasNextInt() == false) {
             scan.nextLine();
-            System.out.print("Opción incorrecta. Por favor, escribe un número: ");
+            System.out.print("Por favor, escribe un número: ");
         }
         int numero = scan.nextInt();
+        scan.close();
         return numero;
     }
 
@@ -83,10 +84,10 @@ public class Validar {
     }
 
     /**
-     * Valida si un NIF introducido es válido o no. Separa números y letra;
+     * Valida si un NIF introducido es o no válido o no. Separa números y letra;
      * calcula la letra que debería tener.
      *
-     * @param nif es una cadena con formato 8 números y una letra
+     * @param nif cadena con formato 8 números y una letra
      * @return <code>true</code> si el NIF es válido y <code>false</code> en
      * caso contrario.
      */
