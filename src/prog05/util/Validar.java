@@ -24,7 +24,6 @@ public class Validar {
             System.out.print("Por favor, escribe un número: ");
         }
         int numero = scan.nextInt();
-        scan.close();
         return numero;
     }
 
