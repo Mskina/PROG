@@ -202,7 +202,6 @@ public class Principal {
         System.out.print("  Año: ");
         int year = scan.nextInt(); // Solicitamos el año
         scan.nextLine();
-        //scan.close();
         return LocalDate.of(year, month, dayOfMonth);
     }
 
