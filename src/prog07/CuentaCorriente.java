@@ -16,20 +16,24 @@ public abstract class CuentaCorriente extends CuentaBancaria {
 
     public CuentaCorriente(Persona titular, double saldo, String iban, String listaEntidadesAutorizadas) {
         super(titular, saldo, iban);
-        this.listaEntidadesAutorizadas = listaEntidadesAutorizadas;
+        this.listaEntidadesAutorizadas = null;
     }
 
-    /**
+    /*
      * Devuelve la información de la cuenta
      *
      * @return String nombre, apellidos, DNI, saldo, tipo de cuenta, interés
      * anual y entidades autorizadas para hacer domiciliaciones
+     *
+     * No operativo ya que nunca se cubre la lista de entidades autorizadas
      */
+ /*
     @Override
     public String devolverInfoString() {
         String contenido = super.devolverInfoString();
         contenido = contenido
                 + "- Entidades autorizadas: " + listaEntidadesAutorizadas + " \n";
         return contenido;
-    }
+    }   
+     */
 }

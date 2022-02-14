@@ -68,10 +68,19 @@ public abstract class CuentaBancaria implements Imprimible {
     @Override
     public String devolverInfoString() {
         String contenido
-                = "- Nombre: " + titular.getNombre() + "\n"
-                + "- Apellidos: " + titular.getApellidos() + "\n"
-                + "- DNI: " + titular.getDni() + "\n"
-                + "- Saldo: " + String.format("%.2f", saldo) + " € \n";
+                = titular.devolverInfoString()
+                + "- Saldo: " + String.format("%.02f", saldo) + " € \n";
+        return contenido;
+    }
+
+    /**
+     * Devuelve la información de la cuenta
+     *
+     * @return String nombre, apellidos, DNI y saldo de la cuenta
+     */
+    public String devolverInfoResumida() {
+        String contenido
+                = String.format("%s \t Titular: %s %s \tSaldo: %.02f €.", getIban(), titular.getNombre(), titular.getApellidos(), getSaldo());
         return contenido;
     }
 }

@@ -6,7 +6,7 @@ package prog07;
  *
  * @author Iván Estévez Sabucedo
  */
-public class Persona {
+public class Persona implements Imprimible {
 
     private String nombre; // Nombre del titular
     private String apellidos; // Apellidos del titular
@@ -45,4 +45,15 @@ public class Persona {
     public String getDni() {
         return dni;
     }
+
+    @Override
+    public String devolverInfoString() {
+        String contenido
+                = "- Nombre: " + getNombre() + "\n"
+                + "- Apellidos: " + getApellidos() + "\n"
+                + "- DNI: " + getDni() + "\n";
+        return contenido;
+    }
+    
+    
 }

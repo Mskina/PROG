@@ -16,7 +16,7 @@ public class CuentaCorrienteEmpresa extends CuentaCorriente {
         this.tipoInteresDescubierto = tipoInteresDescubierto;
         this.maximoDescubiertoPermitido = maximoDescubiertoPermitido;
         this.comisionPorDescubierto = comisionPorDescubierto;
-    }    
+    }
 
     /**
      * Permite retirar dinero de la cuenta quedando en descubierto, siempre que
@@ -26,10 +26,18 @@ public class CuentaCorrienteEmpresa extends CuentaCorriente {
      */
     @Override // En las CC de Empresa puede haber descubierto
     public boolean hacerRetirada(double retirada) {
-        boolean retiradaHecha = false;
-        if (this.saldo + this.maximoDescubiertoPermitido <= retirada) {
-            this.saldo -= retirada;
-            retiradaHecha = true;
+        /*
+         Retirada. Supuesto: Saldo 0€ Máx Desc. 100€ Comisión 2€ - Saldo: 0€
+         Si quiero retirar 100€, me quedaría con un descubierto de 102€,
+         superior a la cantidad permitida. Por ello tengo en cuenta los tres valores.
+         */
+        boolean retiradaHecha = super.hacerRetirada(retirada);
+        if (!retiradaHecha) {
+            double maximaRetirada = this.saldo + this.maximoDescubiertoPermitido - this.comisionPorDescubierto; // Cantidad máxima a retirar, teniendo en cuenta la comisión
+            if (maximaRetirada >= retirada) {
+                this.saldo -= (retirada + this.comisionPorDescubierto);
+                retiradaHecha = true;
+            }
         }
         return retiradaHecha;
     }
@@ -47,10 +55,9 @@ public class CuentaCorrienteEmpresa extends CuentaCorriente {
         String contenido = super.devolverInfoString();
         contenido = contenido
                 + "- Tipo de cuenta: Cuenta corriente Empresa \n"
-                + "- Máximo descubierto permitido: " + String.format("%.2f", maximoDescubiertoPermitido) + " € \n"
-                + "- Tipo de interés por descubierto: " + tipoInteresDescubierto + "% \n"
-                + "- Comisión por descubierto: " + String.format("%.2f", comisionPorDescubierto) + " €.";
-
+                + "- Máximo descubierto permitido: " + String.format("%.02f", maximoDescubiertoPermitido) + " € \n"
+                + "- Tipo de interés por descubierto: " + String.format("%.02f", tipoInteresDescubierto) + " % \n"
+                + "- Comisión por descubierto: " + String.format("%.02f", comisionPorDescubierto) + " €.";
         return contenido;
     }
 }

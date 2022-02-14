@@ -119,7 +119,13 @@ public class Principal {
         } while (tipoCuenta < 1 || tipoCuenta > 3); // No permitimos una elección incorrecta
 
         System.out.print("Saldo inicial: ");
-        saldo = doublePorTeclado();
+        saldo = -1; // Lo inicio a -1 para que entre en el bucle y solicite un saldo correcto
+        while (!Validar.esMayorOIgualQueCero(saldo)) {
+            saldo = doublePorTeclado();
+            if (!Validar.esMayorOIgualQueCero(saldo)) {
+                System.out.print("El número no puede ser negativo. Escribe un saldo correcto: ");
+            }
+        }        
 
         System.out.print("Número de cuenta: ");
         iban = abrirCuentaIban();
@@ -133,14 +139,14 @@ public class Principal {
             System.out.print("Tipo de interés: ");
             comisionMantenimiento = doublePorTeclado();
 
-            System.out.print("Entidades autorizadas: ");
-            listaEntidadesAutorizadas = scan.nextLine(); // Entidades autorizadas para domiciliar recibos 
+            //System.out.print("Entidades autorizadas: ");
+            listaEntidadesAutorizadas = null; // Entidades autorizadas para domiciliar recibos. Se inicia a null en perspectiva de posibles aumentos en tareas posteriores
 
             cuenta = new CuentaCorrientePersonal(titular, saldo, iban, listaEntidadesAutorizadas, comisionMantenimiento);
         }
         if (tipoCuenta == 3) { //Cuenta corriente empresa
-            System.out.print("Entidades autorizadas: ");
-            listaEntidadesAutorizadas = scan.nextLine(); // Entidades autorizadas para domiciliar recibos 
+            //System.out.print("Entidades autorizadas: ");
+            listaEntidadesAutorizadas = null; // Entidades autorizadas para domiciliar recibos. Se inicia a null en perspectiva de posibles aumentos en tareas posteriores
 
             System.out.print("Tipo de interés por descubierto: ");
             tipoInteresDescubierto = doublePorTeclado();
@@ -159,7 +165,7 @@ public class Principal {
         if (cuentaCreada) {
             System.out.println("Cuenta creada exitosamente.");
         } else {
-            System.out.println("Lo sentimos, ha ocurrido un error.");
+            System.out.println("Lo sentimos, no se ha podido crear la cuenta.");
         }
     }
 
@@ -248,7 +254,7 @@ public class Principal {
         if (banco.ingresoCuenta(iban, cantidad)) {
             System.out.println("Operación realizada correctamente");
         } else {
-            System.out.println("Lo sentimos, ha ocurrido un error.");
+            System.out.println("No se ha podido llevar a cabo el ingreso.");
         }
     }
 
@@ -273,7 +279,7 @@ public class Principal {
         if (banco.retiradaCuenta(iban, cantidad)) {
             System.out.println("Operación realizada correctamente");
         } else {
-            System.out.println("No dispones de los fondos suficientes.");
+            System.out.println("No se ha podido llevar a cabo la retirada.");
         }
     }
 

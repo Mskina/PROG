@@ -29,21 +29,20 @@ public class Banco {
      * en caso contrario
      */
     public boolean abrirCuenta(CuentaBancaria cuenta) {
-        boolean abrirCuenta = false;
+        boolean abrirCuenta = true;
         int i = 0;
         if (numeroCuentas == 100) {
             abrirCuenta = false; // No hay espacio para almacenar más cuentas
         } else {
-            while (i < numeroCuentas && !abrirCuenta) {
-                if (listaCuentas[i].equals(cuenta)) {
-                    abrirCuenta = false; // Ya existe esa cuenta
+            while (i < numeroCuentas && abrirCuenta) {
+                if (listaCuentas[i].getIban().equals(cuenta.getIban())) {
+                    abrirCuenta = false; // Ya existe ese IBAN
                 }
                 i++;
             }
-            if (!abrirCuenta) {
+            if (abrirCuenta) {
                 listaCuentas[numeroCuentas] = cuenta;
-                numeroCuentas++;
-                abrirCuenta = true; // Éxito
+                numeroCuentas++; // Éxito
             }
         }
         return abrirCuenta;
@@ -57,7 +56,7 @@ public class Banco {
     public String[] listadoCuentas() {
         String[] listado = new String[numeroCuentas];
         for (int i = 0; i < numeroCuentas; i++) {
-            listado[i] = listaCuentas[i].devolverInfoString();
+            listado[i] = listaCuentas[i].devolverInfoResumida();
         }
         return listado;
     }
@@ -77,6 +76,7 @@ public class Banco {
             if (listaCuentas[i].getIban().equals(iban)) {
                 informacionCuenta = listaCuentas[i].devolverInfoString();
             }
+            i++;
         }
         return informacionCuenta;
     }
@@ -117,7 +117,7 @@ public class Banco {
         int i = 0;
         while (i < numeroCuentas && !retirado) {
             if (listaCuentas[i].getIban().equals(iban)) {
-                if (listaCuentas[i].hacerRetirada(retirada)) {;
+                if (listaCuentas[i].hacerRetirada(retirada)) {
                     retirado = true;
                 }
             }

@@ -21,6 +21,17 @@ public class Validar {
     public static boolean esMayorQueCero(double numero) {
         return numero > 0;
     }
+    
+    /**
+     * Comprueba si el número introducido es mayor o igual que 0
+     *
+     * @param numero que deseamos validar
+     * @return <code>true</code> si es válido y <code>false</code> en caso
+     * contrario.
+     */
+    public static boolean esMayorOIgualQueCero(double numero) {
+        return numero >= 0;
+    }
 
     /**
      * Recibe una cadena de texto y comprueba si se trata de un entero
@@ -60,7 +71,7 @@ public class Validar {
      * contrario.
      */
     public static boolean esIbanCorrecto(String iban) {
-        boolean esIbanCorrecto = false;
+        boolean esIbanCorrecto;
         Pattern pat = Pattern.compile("ES[0-9]{20}");
         Matcher mat = pat.matcher(iban);
         esIbanCorrecto = mat.matches();

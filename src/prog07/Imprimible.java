@@ -1,16 +1,17 @@
 package prog07;
 
 /**
- * Interfaz que permite devolver información en String
+ * Interfaz que deben implementar aquellas clases que se puedan representar
+ * como una cadena de texto.
  *
  * @author Iván Estévez Sabucedo
  */
 public interface Imprimible {
 
     /**
-     * Método que devuelve información, dependiendo de su implementación
+     * Devuelve información dependiendo de su implementación
      *
-     * @return String con información
+     * @return Texto con información
      */
     String devolverInfoString();
 
