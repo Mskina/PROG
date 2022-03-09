@@ -9,9 +9,11 @@ import java.util.*;
  * @author Iván Estévez Sabucedo
  */
 public class Banco {
-    // No se van a repetir elementos, pero sí agregar, eliminar y, sobre todo, consultar.
-    // Opto por ArrayList ya que las consultas van a ser mucho más numerosas que las eliminaciones
-    
+
+    /* No se van a repetir elementos, pero sí agregar, eliminar y, sobre todo, consultar.
+    Opto por ArrayList ya que las consultas van a ser mucho más numerosas que las eliminaciones
+    Además, sé que va a haber pocos elementos almacenados, por lo que el espacio no llega a ser un problema
+     */
     ArrayList<CuentaBancaria> cuentas; // ArrayList de cuentas bancarias
 
     /**
@@ -151,9 +153,12 @@ public class Banco {
     }
 
     /**
-     * 
-     * @param iban
-     * @return 
+     * Recibe como parámetro un IBAN, busca la cuenta asociada y, si existe,
+     * devuelve su posición
+     *
+     * @param iban número de cuenta sobre el que se opera
+     * @return  <code>-1</code> si no existe y <code>int</code> para indicar la
+     * posición del elemento.
      */
     private int buscarCuentaIndice(String iban) {
         boolean encontrado = false;
@@ -167,5 +172,4 @@ public class Banco {
         }
         return indice;
     }
-
 }
