@@ -20,6 +20,10 @@ public class Vehiculo implements Comparable<Vehiculo>{
     private double precio;
     private String nombrePropietario;
     private String nifPropietario;
+    
+    public Vehiculo(String matricula) {
+        this.matricula = matricula;
+    }
 
     /**
      * Método constructor del vehículo, donde se solicitan todos los parámetros

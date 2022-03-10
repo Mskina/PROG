@@ -11,7 +11,11 @@ import java.util.*;
  */
 public class Concesionario {
 
-    private TreeSet<Vehiculo> listaVehiculos;
+    /* Opto por emplear un TreeSet ya que ordena los elementos nativamente.
+    En mi caso, modifico el método compareTo() para que realice las comparaciones
+    en función de la matrícula de los vehículos  
+     */
+    private TreeSet<Vehiculo> listaVehiculos; // Árbol de objetos
 
     /**
      * Método constructor del concesionario, en el que se crea un TreeSet
@@ -31,20 +35,11 @@ public class Concesionario {
     public String buscarVehiculo(String matricula) {
         String datosVehiculo = null;
 
-        for (Vehiculo veh : listaVehiculos) {
-            if (veh.getMatricula().compareTo(matricula) == 0) {
-                datosVehiculo = veh.getDatosResumido();
-            }
+        Vehiculo vehiculoBuscar = new Vehiculo(matricula); // Vehículo temporal para hacer las comparaciones
+        Vehiculo vehiculoEncontrado = listaVehiculos.floor(vehiculoBuscar); // Vehículo para hacer la búsqueda binaria
+        if (vehiculoEncontrado.compareTo(vehiculoBuscar) == 0) {
+            datosVehiculo = vehiculoEncontrado.getDatosResumido();
         }
-
-        /*
-        int i = 0;
-        while (i < listaVehiculos.size() && datosVehiculo == null) {
-            if (listaVehiculos[i].getMatricula().equals(matricula)) {
-                datosVehiculo = listaVehiculos[i].getDatosResumido();
-            }
-            i++;
-        }*/
         return datosVehiculo;
     }
 
@@ -68,29 +63,13 @@ public class Concesionario {
         int i = 0;
         if (listaVehiculos.size() == 50) {
             insertarVehiculo = -1; // El concesionario está lleno (entendemos que físicamente)
-            for (Vehiculo veh : listaVehiculos) {
-                if (veh.getMatricula().compareTo(matricula) == 0) {
-                    insertarVehiculo = -2; // Ya existe
-                } else {
-                    Vehiculo v = new Vehiculo(marca, matricula, kilometros, fechaMatriculacion, descripcion, precio, nombrePropietario, dniPropietario);
-                    listaVehiculos.add(v);
-                    insertarVehiculo = 0; // Éxito
-                }
+        } else {
+            Vehiculo v = new Vehiculo(marca, matricula, kilometros, fechaMatriculacion, descripcion, precio, nombrePropietario, dniPropietario);
+            if (listaVehiculos.add(v)) {
+                insertarVehiculo = 0;
+            } else {
+                insertarVehiculo = -2;
             }
-
-            /*} else {
-            while (i < listaVehiculos.size() && insertarVehiculo != -2) {
-                if (listaVehiculos[i].getMatricula().equals(matricula)) {
-                    insertarVehiculo = -2; // Ya existe esa matrícula
-                }
-                i++;
-            }
-            if (insertarVehiculo != -2) {
-                Vehiculo v = new Vehiculo(marca, matricula, kilometros, fechaMatriculacion, descripcion, precio, nombrePropietario, dniPropietario);
-                listaVehiculos.add(v);
-                insertarVehiculo = 0; // Éxito
-            }
-        }*/
         }
         return insertarVehiculo;
     }
@@ -119,21 +98,13 @@ public class Concesionario {
      */
     public boolean actualizarKms(String matricula, int kilometrosParaSumar) {
         boolean actualizadorKms = false;
-        for (Vehiculo veh : listaVehiculos) {
-            if (veh.getMatricula().compareTo(matricula) == 0 && !actualizadorKms) {
-                veh.addKilometros(kilometrosParaSumar);
-                actualizadorKms = true;
-            }
+
+        Vehiculo vehiculoBuscar = new Vehiculo(matricula); // Vehículo temporal para hacer las comparaciones
+        Vehiculo vehiculoEncontrado = listaVehiculos.floor(vehiculoBuscar); // Vehículo sobre el que se realiza la búsqueda binaria
+        if (vehiculoEncontrado.compareTo(vehiculoBuscar) == 0) {
+            vehiculoEncontrado.addKilometros(kilometrosParaSumar);
+            actualizadorKms = true;
         }
-/*
-        int i = 0;
-        while (i < listaVehiculos.size() && !actualizadorKms) {
-            if (listaVehiculos[i].getMatricula().equals(matricula)) {
-                listaVehiculos[i].addKilometros(kilometrosParaSumar);
-                actualizadorKms = true;
-            }
-            i++;
-        }*/
         return actualizadorKms;
     }
 
@@ -146,31 +117,7 @@ public class Concesionario {
      * caso contrario.
      */
     public boolean eliminarVehiculo(String matricula) {
-        boolean eliminarVehiculo = false;
-        for (Vehiculo veh : listaVehiculos) {
-            if (veh.getMatricula().compareTo(matricula) == 0) {
-                listaVehiculos.remove(veh);
-                eliminarVehiculo = true;
-            }
-        }
-/*
-        int i = 0;
-        while (i < listaVehiculos.size() && !eliminarVehiculo) {
-            if (listaVehiculos[i].getMatricula().equals(matricula)) {
-                listaVehiculos[i] = null; // Se elimina la referencia. No de memoria (Chrome está todavía triste)
-                eliminarVehiculo = true;
-                numeroVehiculos--;
-            } else { // para que no cuente en la vez que se elimine
-                i++;
-            }
-        }
-        if (eliminarVehiculo) {
-            for (int j = i; j < listaVehiculos.size(); j++) { // imaginamos que arriba es el 3
-                // j = 3, viene abajo y en el 3 copia lo que hay en el 4
-                listaVehiculos[j] = listaVehiculos[j + 1];
-                // si en el array hay 5, en el 3 copia el 4, en el 4 copia el 5...
-            }
-        }*/
-        return eliminarVehiculo;
+        Vehiculo v = new Vehiculo(matricula); // Vehículo temporal para intentar realizar la eliminación
+        return listaVehiculos.remove(v);
     }
 }
