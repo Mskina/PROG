@@ -1,4 +1,4 @@
-package prog06;
+package ejer2;
 
 import java.time.LocalDate;
 
@@ -8,7 +8,7 @@ import java.time.LocalDate;
  *
  * @author Iván Estévez Sabucedo
  */
-public class Concesionario {
+public class Concesionario_viejo {
 
     private Vehiculo[] listaVehiculos;
     private int numeroVehiculos;
@@ -17,7 +17,7 @@ public class Concesionario {
      * Método constructor del concesionario, en el que se crea el array con un
      * tamaño fijo de 50 vehículos
      */
-    public Concesionario() {
+    public Concesionario_viejo() {
         listaVehiculos = new Vehiculo[50];
         numeroVehiculos = 0;
     }

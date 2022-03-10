@@ -1,7 +1,8 @@
-package prog06;
+package ejer2;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.*;
 
 /**
  * Representa la creación de un objeto Vehículo. Permite consultar y actualizar
@@ -9,7 +10,7 @@ import java.time.temporal.ChronoUnit;
  *
  * @author Iván Estévez Sabucedo
  */
-public class Vehiculo {
+public class Vehiculo implements Comparable<Vehiculo>{
 
     private String marca;
     private String matricula;
@@ -165,5 +166,11 @@ public class Vehiculo {
                 + "\n- Kilómetros: " + kilometros + " km "
                 + "\n- Descripción: " + descripcion + ".";
         return datosVehiculo;
+    }
+    
+    
+    @Override
+    public int compareTo(Vehiculo v) {
+       return this.matricula.compareTo(v.getMatricula());
     }
 }

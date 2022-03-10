@@ -1,9 +1,9 @@
-package prog06;
+package ejer2;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.Scanner;
-import prog06.util.Validar;
+import ejer2.util.Validar;
 
 /**
  * Representa la creación del concesionario. Los datos se solicitan y, junto a

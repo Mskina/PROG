@@ -1,4 +1,4 @@
-package prog06.util;
+package ejer2.util;
 
 import java.time.LocalDate;
 import java.util.regex.Matcher;
