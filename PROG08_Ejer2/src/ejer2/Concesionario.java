@@ -13,20 +13,20 @@ public class Concesionario {
 
     /* Opto por emplear un TreeSet ya que ordena los elementos nativamente.
     En mi caso, modifico el método compareTo() para que realice las comparaciones
-    en función de la matrícula de los vehículos  
+    en función de la matrícula de los vehículos.  
      */
     private TreeSet<Vehiculo> listaVehiculos; // Árbol de objetos
 
     /**
-     * Método constructor del concesionario, en el que se crea un TreeSet
+     * Método constructor del concesionario, en el que se crea un TreeSet.
      */
     public Concesionario() {
-        listaVehiculos = new TreeSet<Vehiculo>();
+        listaVehiculos = new TreeSet<Vehiculo>(); // Creación del TreeSet
     }
 
     /**
      * Recibe como parámetro una matrícula, busca el vehículo en el
-     * concesionario y devuelve una cadena con los datos del vehículo
+     * concesionario y devuelve una cadena con los datos del vehículo.
      *
      * @param matricula matrícula del vehículo a buscar
      * @return cadena con los datos del vehículo o <code>null</code> si el
@@ -34,7 +34,6 @@ public class Concesionario {
      */
     public String buscarVehiculo(String matricula) {
         String datosVehiculo = null;
-
         Vehiculo vehiculoBuscar = new Vehiculo(matricula); // Vehículo temporal para hacer las comparaciones
         Vehiculo vehiculoEncontrado = listaVehiculos.floor(vehiculoBuscar); // Vehículo para hacer la búsqueda binaria
         if (vehiculoEncontrado.compareTo(vehiculoBuscar) == 0) {
@@ -60,7 +59,6 @@ public class Concesionario {
      */
     public int insertarVehiculo(String marca, String matricula, int kilometros, LocalDate fechaMatriculacion, String descripcion, double precio, String nombrePropietario, String dniPropietario) {
         int insertarVehiculo = 1;
-        int i = 0;
         if (listaVehiculos.size() == 50) {
             insertarVehiculo = -1; // El concesionario está lleno (entendemos que físicamente)
         } else {
@@ -98,7 +96,6 @@ public class Concesionario {
      */
     public boolean actualizarKms(String matricula, int kilometrosParaSumar) {
         boolean actualizadorKms = false;
-
         Vehiculo vehiculoBuscar = new Vehiculo(matricula); // Vehículo temporal para hacer las comparaciones
         Vehiculo vehiculoEncontrado = listaVehiculos.floor(vehiculoBuscar); // Vehículo sobre el que se realiza la búsqueda binaria
         if (vehiculoEncontrado.compareTo(vehiculoBuscar) == 0) {

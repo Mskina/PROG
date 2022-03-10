@@ -21,6 +21,11 @@ public class Vehiculo implements Comparable<Vehiculo>{
     private String nombrePropietario;
     private String nifPropietario;
     
+    /**
+     * Método constructor del vehículo empleado para hacer las comparaciones.
+     * 
+     * @param matricula matrícula del vehículo
+     */
     public Vehiculo(String matricula) {
         this.matricula = matricula;
     }
@@ -174,6 +179,9 @@ public class Vehiculo implements Comparable<Vehiculo>{
     
     
     @Override
+    /**
+     * Método de comparación. La realiza en función a la matrícula.
+     */
     public int compareTo(Vehiculo v) {
        return this.matricula.compareTo(v.getMatricula());
     }
