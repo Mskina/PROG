@@ -3,9 +3,11 @@ package ejer1;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
 import java.util.Scanner;
 import util.Validar;
 
@@ -32,7 +34,7 @@ public class Principal {
         cargarFichero(banco);
 
         System.out.println("Bienvenido a GestBanca, tu sistema de gestión bancaria.");
-        System.out.println("Número de cuentas registradas actualmente: "+ banco.cuentas.size() + ".");
+        System.out.println("Número de cuentas registradas actualmente: " + banco.cuentas.size() + ".");
         do {
             opcion = lanzarMenu();
             switch (opcion) {
@@ -58,13 +60,16 @@ public class Principal {
                     eliminarCuenta(banco);
                     break;
                 case 8:
+                    exportarListado(banco);
+                    break;
+                case 9:
                     guardarDatosFichero(banco);
                     System.out.println("Gracias por utilizar GestBanca.");
                     break;
                 default:
                     System.out.println("Opción incorrecta. Introduce el número de la opción deseada: ");
             }
-        } while (opcion != 8);
+        } while (opcion != 9);
         scan.close(); // Se cierra el escáner
     }
 
@@ -83,7 +88,8 @@ public class Principal {
                 + "\t 5. Retirar efectivo de una cuenta \n"
                 + "\t 6. Consultar el saldo actual de una cuenta \n"
                 + "\t 7. Eliminar una cuenta \n"
-                + "\t 8. Guardar y salir \n");
+                + "\t 8. Listado clientes \n"
+                + "\t 9. Guardar y salir \n");
         System.out.print("Por favor, introduce el número de la opción deseada: ");
         opcion = enteroPorTeclado();
         return opcion;
@@ -330,8 +336,32 @@ public class Principal {
     }
 
     /**
+     * Genera el archivo ListadoClientesCCC.txt con el propietario y el IBAN de
+     * cada cuenta almacenada, así como el número total de cuentas.
      *
-     * @param banco
+     * @param banco el objeto banco en el que se hace la operación
+     */
+    public static void exportarListado(Banco banco) {
+        try {
+            FileWriter archivo = new FileWriter("ListadoClientesCCC.txt");
+            PrintWriter pw = new PrintWriter(archivo);
+            for (CuentaBancaria cuenta : banco.cuentas) {
+                pw.println(cuenta.iban + ": " + cuenta.titular.getNombre() + " " + cuenta.titular.getApellidos());
+            }
+            pw.println("Total: " + banco.cuentas.size());
+            pw.close();
+            archivo.close();
+            System.out.println("Archivo exportado correctamente");
+        } catch (IOException e) {
+            System.out.println("No se ha podido exportar el archivo");
+        }
+    }
+
+    /**
+     * Crea o sobreescribe el fichero datoscuentasbancarias.dat con la
+     * información contenida en el banco.
+     *
+     * @param banco el objeto banco en el que se hace la operación
      */
     public static void guardarDatosFichero(Banco banco) {
         try {
@@ -383,7 +413,10 @@ public class Principal {
     }
 
     /**
-     *
+     * Si existe, carga el fichero datoscuentasbancarias.dat y vuelca su
+     * contenido al banco.
+     * 
+     * @param banco el objeto banco en el que se hace la operación
      */
     public static void cargarFichero(Banco banco) {
         try {
@@ -399,7 +432,7 @@ public class Principal {
         } catch (FileNotFoundException e) {
         } catch (Exception e) {
             System.out.println("Error al leer el fichero");
-        }   
+        }
     }
 
 }
