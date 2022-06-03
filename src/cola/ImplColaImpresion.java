@@ -105,7 +105,7 @@ public class ImplColaImpresion {
             for (Archivo a : colaArray) {
                 pw.println("Archivo ID: " + colaArray.indexOf(a)
                         + "\n\t- Nombre: " + a.getNombre() + "."
-                        + "\n\t- Tamaño: " + a.getTamanho() + "bites"
+                        + "\n\t- Tamaño: " + a.getTamanho() + " bytes"
                         + "\n\t- Prioridad: " + a.getPrioridad() + "."
                         + "\n\t- Color: " + a.getBnColor() + "."
                         + "\n\t- Tipo: " + a.getTipo() + "."
